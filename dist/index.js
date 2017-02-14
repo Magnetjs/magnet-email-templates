@@ -4,8 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _base = require('magnet-core/base');
 
 var _base2 = _interopRequireDefault(_base);
@@ -26,164 +24,324 @@ var _emailTemplates3 = _interopRequireDefault(_emailTemplates2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+Function.prototype.$asyncbind = function $asyncbind(self, catcher) {
+  "use strict";
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Mailer = function (_Base) {
-  _inherits(Mailer, _Base);
-
-  function Mailer() {
-    _classCallCheck(this, Mailer);
-
-    return _possibleConstructorReturn(this, (Mailer.__proto__ || Object.getPrototypeOf(Mailer)).apply(this, arguments));
+  if (!Function.prototype.$asyncbind) {
+    Object.defineProperty(Function.prototype, "$asyncbind", {
+      value: $asyncbind,
+      enumerable: false,
+      configurable: true,
+      writable: true
+    });
   }
 
-  _createClass(Mailer, [{
-    key: 'setup',
-    value: function () {
-      var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
-        var config, stat, files, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, file, dirPath, dir;
-
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                config = Object.assign(_emailTemplates3.default, this.config.mailer, this.options);
-
-                this.app.emailTemplates = {};
-
-                _context.prev = 2;
-                _context.next = 5;
-                return _fs2.default.stat(config.templatesDir);
-
-              case 5:
-                stat = _context.sent;
-
-                if (stat) {
-                  _context.next = 8;
-                  break;
-                }
-
-                return _context.abrupt('return');
-
-              case 8:
-                _context.next = 10;
-                return _fs2.default.readdir(config.templatesDir);
-
-              case 10:
-                files = _context.sent;
-                _iteratorNormalCompletion = true;
-                _didIteratorError = false;
-                _iteratorError = undefined;
-                _context.prev = 14;
-                _iterator = files[Symbol.iterator]();
-
-              case 16:
-                if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
-                  _context.next = 28;
-                  break;
-                }
-
-                file = _step.value;
-                dirPath = config.templatesDir + '/' + file;
-                _context.next = 21;
-                return _fs2.default.stat(dirPath);
-
-              case 21:
-                dir = _context.sent;
-
-                if (dir.isDirectory()) {
-                  _context.next = 24;
-                  break;
-                }
-
-                return _context.abrupt('continue', 25);
-
-              case 24:
-
-                this.app.emailTemplates[(0, _camelCase2.default)(file)] = new _emailTemplates.EmailTemplate(dirPath, config.options);
-
-              case 25:
-                _iteratorNormalCompletion = true;
-                _context.next = 16;
-                break;
-
-              case 28:
-                _context.next = 34;
-                break;
-
-              case 30:
-                _context.prev = 30;
-                _context.t0 = _context['catch'](14);
-                _didIteratorError = true;
-                _iteratorError = _context.t0;
-
-              case 34:
-                _context.prev = 34;
-                _context.prev = 35;
-
-                if (!_iteratorNormalCompletion && _iterator.return) {
-                  _iterator.return();
-                }
-
-              case 37:
-                _context.prev = 37;
-
-                if (!_didIteratorError) {
-                  _context.next = 40;
-                  break;
-                }
-
-                throw _iteratorError;
-
-              case 40:
-                return _context.finish(37);
-
-              case 41:
-                return _context.finish(34);
-
-              case 42:
-                _context.next = 51;
-                break;
-
-              case 44:
-                _context.prev = 44;
-                _context.t1 = _context['catch'](2);
-
-                if (!(_context.t1.code === 'ENOENT')) {
-                  _context.next = 50;
-                  break;
-                }
-
-                this.log.warn(_context.t1);
-                _context.next = 51;
-                break;
-
-              case 50:
-                throw _context.t1;
-
-              case 51:
-              case 'end':
-                return _context.stop();
-            }
+  if (!$asyncbind.trampoline) {
+    $asyncbind.trampoline = function trampoline(t, x, s, e, u) {
+      return function b(q) {
+        while (q) {
+          if (q.then) {
+            q = q.then(b, e);
+            return u ? undefined : q;
           }
-        }, _callee, this, [[2, 44], [14, 30, 34, 42], [35,, 37, 41]]);
-      }));
 
-      function setup() {
-        return _ref.apply(this, arguments);
+          try {
+            if (q.pop) {
+              if (q.length) return q.pop() ? x.call(t) : q;
+              q = s;
+            } else q = q.call(t);
+          } catch (r) {
+            return e(r);
+          }
+        }
+      };
+    };
+  }
+
+  if (!$asyncbind.LazyThenable) {
+    $asyncbind.LazyThenable = function () {
+      function isThenable(obj) {
+        return obj && obj instanceof Object && typeof obj.then === "function";
       }
 
-      return setup;
-    }()
-  }]);
+      function resolution(p, r, how) {
+        try {
+          var x = how ? how(r) : r;
+          if (p === x) return p.reject(new TypeError("Promise resolution loop"));
 
-  return Mailer;
-}(_base2.default);
+          if (isThenable(x)) {
+            x.then(function (y) {
+              resolution(p, y);
+            }, function (e) {
+              p.reject(e);
+            });
+          } else {
+            p.resolve(x);
+          }
+        } catch (ex) {
+          p.reject(ex);
+        }
+      }
 
+      function Chained() {}
+
+      ;
+      Chained.prototype = {
+        resolve: _unchained,
+        reject: _unchained,
+        then: thenChain
+      };
+
+      function _unchained(v) {}
+
+      function thenChain(res, rej) {
+        this.resolve = res;
+        this.reject = rej;
+      }
+
+      function then(res, rej) {
+        var chain = new Chained();
+
+        try {
+          this._resolver(function (value) {
+            return isThenable(value) ? value.then(res, rej) : resolution(chain, value, res);
+          }, function (ex) {
+            resolution(chain, ex, rej);
+          });
+        } catch (ex) {
+          resolution(chain, ex, rej);
+        }
+
+        return chain;
+      }
+
+      function Thenable(resolver) {
+        this._resolver = resolver;
+        this.then = then;
+      }
+
+      ;
+
+      Thenable.resolve = function (v) {
+        return Thenable.isThenable(v) ? v : {
+          then: function (resolve) {
+            return resolve(v);
+          }
+        };
+      };
+
+      Thenable.isThenable = isThenable;
+      return Thenable;
+    }();
+
+    $asyncbind.EagerThenable = $asyncbind.Thenable = ($asyncbind.EagerThenableFactory = function (tick) {
+      tick = tick || typeof process === "object" && process.nextTick || typeof setImmediate === "function" && setImmediate || function (f) {
+        setTimeout(f, 0);
+      };
+
+      var soon = function () {
+        var fq = [],
+            fqStart = 0,
+            bufferSize = 1024;
+
+        function callQueue() {
+          while (fq.length - fqStart) {
+            fq[fqStart]();
+            fq[fqStart++] = undefined;
+
+            if (fqStart === bufferSize) {
+              fq.splice(0, bufferSize);
+              fqStart = 0;
+            }
+          }
+        }
+
+        return function (fn) {
+          fq.push(fn);
+          if (fq.length - fqStart === 1) tick(callQueue);
+        };
+      }();
+
+      function Zousan(func) {
+        if (func) {
+          var me = this;
+          func(function (arg) {
+            me.resolve(arg);
+          }, function (arg) {
+            me.reject(arg);
+          });
+        }
+      }
+
+      Zousan.prototype = {
+        resolve: function (value) {
+          if (this.state !== undefined) return;
+          if (value === this) return this.reject(new TypeError("Attempt to resolve promise with self"));
+          var me = this;
+
+          if (value && (typeof value === "function" || typeof value === "object")) {
+            try {
+              var first = 0;
+              var then = value.then;
+
+              if (typeof then === "function") {
+                then.call(value, function (ra) {
+                  if (!first++) {
+                    me.resolve(ra);
+                  }
+                }, function (rr) {
+                  if (!first++) {
+                    me.reject(rr);
+                  }
+                });
+                return;
+              }
+            } catch (e) {
+              if (!first) this.reject(e);
+              return;
+            }
+          }
+
+          this.state = STATE_FULFILLED;
+          this.v = value;
+          if (me.c) soon(function () {
+            for (var n = 0, l = me.c.length; n < l; n++) STATE_FULFILLED(me.c[n], value);
+          });
+        },
+        reject: function (reason) {
+          if (this.state !== undefined) return;
+          this.state = STATE_REJECTED;
+          this.v = reason;
+          var clients = this.c;
+          if (clients) soon(function () {
+            for (var n = 0, l = clients.length; n < l; n++) STATE_REJECTED(clients[n], reason);
+          });
+        },
+        then: function (onF, onR) {
+          var p = new Zousan();
+          var client = {
+            y: onF,
+            n: onR,
+            p: p
+          };
+
+          if (this.state === undefined) {
+            if (this.c) this.c.push(client);else this.c = [client];
+          } else {
+            var s = this.state,
+                a = this.v;
+            soon(function () {
+              s(client, a);
+            });
+          }
+
+          return p;
+        }
+      };
+
+      function STATE_FULFILLED(c, arg) {
+        if (typeof c.y === "function") {
+          try {
+            var yret = c.y.call(undefined, arg);
+            c.p.resolve(yret);
+          } catch (err) {
+            c.p.reject(err);
+          }
+        } else c.p.resolve(arg);
+      }
+
+      function STATE_REJECTED(c, reason) {
+        if (typeof c.n === "function") {
+          try {
+            var yret = c.n.call(undefined, reason);
+            c.p.resolve(yret);
+          } catch (err) {
+            c.p.reject(err);
+          }
+        } else c.p.reject(reason);
+      }
+
+      Zousan.resolve = function (val) {
+        if (val && val instanceof Zousan) return val;
+        var z = new Zousan();
+        z.resolve(val);
+        return z;
+      };
+
+      Zousan.reject = function (err) {
+        if (err && err instanceof Zousan) return err;
+        var z = new Zousan();
+        z.reject(err);
+        return z;
+      };
+
+      Zousan.version = "2.3.2-nodent";
+      return Zousan;
+    })();
+  }
+
+  var resolver = this;
+
+  switch (catcher) {
+    case true:
+      return new $asyncbind.Thenable(boundThen);
+
+    case 0:
+      return new $asyncbind.LazyThenable(boundThen);
+
+    case undefined:
+      boundThen.then = boundThen;
+      return boundThen;
+
+    default:
+      return function () {
+        try {
+          return resolver.apply(self, arguments);
+        } catch (ex) {
+          return catcher(ex);
+        }
+      };
+  }
+
+  function boundThen() {
+    return resolver.apply(self, arguments);
+  }
+};
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+class Mailer extends _base2.default {
+  setup() {
+    var _this = this;
+
+    return _asyncToGenerator(function* () {
+      let config = Object.assign(_emailTemplates3.default, _this.config.mailer, _this.options);
+      _this.app.emailTemplates = {};
+
+      try {
+        // console.log(await glob(`${config.templatesDir}`));
+        const stat = yield _fs2.default.stat(config.templatesDir);
+
+        if (!stat) return;
+
+        const files = yield _fs2.default.readdir(config.templatesDir);
+
+        for (const file of files) {
+          const dirPath = `${config.templatesDir}/${file}`;
+          const dir = yield _fs2.default.stat(dirPath);
+
+          if (!dir.isDirectory()) continue;
+
+          _this.app.emailTemplates[(0, _camelCase2.default)(file)] = new _emailTemplates.EmailTemplate(dirPath, config.options);
+        }
+      } catch (err) {
+        if (err.code === 'ENOENT') {
+          _this.log.warn(err);
+        } else {
+          throw err;
+        }
+      }
+    })();
+  }
+}
 exports.default = Mailer;

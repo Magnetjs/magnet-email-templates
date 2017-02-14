@@ -1,34 +1,60 @@
 {
   "name": "magnet-email-templates",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Magnet adapter for email template",
-  "scripts": {
-    "prepublish": "npm run build",
-    "build": "babel src --out-dir dist",
-    "start": "babel src --out-dir dist",
-    "test": "babel-node tests/index.js | tap-spec",
-    "watch": "nodemon --ignore dist --exec \"babel src\" --out-dir dist",
-    "watch-test": "nodemon --delay 0.5 --ignore src --exec babel-node tests/index.js | tap-spec",
-    "watch-all": "concurrently \"npm run watch\" \"npm run watch-test\""
-  },
-  "main": "dist/index.js",
   "keywords": [
-    "magnet",
-    "magnetjs",
+    "email",
     "email-templates",
-    "email"
+    "magnet",
+    "magnetjs"
   ],
-  "author": "Kieve Chua <kievechua@gmail.com> (https://github.com/kievechua)",
+  "homepage": "https://github.com/Magnetjs/magnet-email-templates#readme",
+  "bugs": {
+    "url": "https://github.com/Magnetjs/magnet-email-templates/issues"
+  },
   "license": "MIT",
+  "author": "Kieve Chua <kievechua@gmail.com> (https://github.com/kievechua)",
   "files": [
     "README",
     "CHANGELOG.md",
     "dist"
   ],
+  "main": "dist/index.js",
+  "repository": "magnetjs/magnet-email-templates",
+  "scripts": {
+    "build": "babel src --out-dir dist",
+    "dist": "npm run build && npm publish",
+    "start": "babel src --out-dir dist",
+    "test": "babel-node tests/index.js | tap-spec",
+    "watch": "nodemon --ignore dist --exec \"babel src\" --out-dir dist",
+    "watch-all": "concurrently \"npm run watch\" \"npm run watch-test\"",
+    "watch-test": "nodemon --delay 0.5 --ignore src --exec babel-node tests/index.js | tap-spec"
+  },
+  "babel": {
+    "ignore": [
+      "docs",
+      "node_modules",
+      "dist",
+      "test"
+    ],
+    "plugins": [
+      "fast-async"
+    ],
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ]
+  },
   "dependencies": {
     "email-templates": "^2.5.4",
     "lodash": "^4.17.4",
-    "magnet-core": "^3.1.1",
+    "magnet-core": "^3.2.2",
     "mz": "^2.6.0"
   },
   "devDependencies": {
@@ -36,29 +62,17 @@
     "babel-core": "^6.7.7",
     "babel-plugin-transform-async-to-generator": "^6.7.0",
     "babel-plugin-transform-runtime": "^6.6.0",
+    "babel-preset-env": "^1.1.8",
     "babel-preset-es2015": "^6.6.0",
     "babel-preset-stage-0": "^6.5.0",
-    "concurrently": "^3.1.0",
+    "concurrently": "^3.3.0",
+    "fast-async": "^6.2.0",
     "nodemon": "^1.9.1",
     "standard": "^8.6.0",
     "tap-spec": "^4.1.1",
     "tape": "^4.5.1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/Magnetjs/magnet-email-templates.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Magnetjs/magnet-email-templates/issues"
-  },
-  "homepage": "https://github.com/Magnetjs/magnet-email-templates#readme",
-  "babel": {
-    "presets": [
-      "es2015",
-      "stage-0"
-    ],
-    "plugins": [
-      "transform-async-to-generator"
-    ]
+  "engines": {
+    "node": ">=6.9.5"
   }
 }
