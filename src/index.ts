@@ -13,7 +13,7 @@ export default class MagnetEmailTemplate extends Module {
     try {
       this.app.emailTemplates = {}
 
-      const templatesDir = path.join(process.cwd(), config.templatesDir)
+      const templatesDir = path.join(this.config.baseDirPath, config.templatesDir)
       const stat = await fs.stat(templatesDir)
 
       if (!stat) return

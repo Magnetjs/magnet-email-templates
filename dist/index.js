@@ -20,7 +20,7 @@ class MagnetEmailTemplate extends module_1.Module {
             const config = this.prepareConfig('emailTemplates', emailTemplates_1.default);
             try {
                 this.app.emailTemplates = {};
-                const templatesDir = path.join(process.cwd(), config.templatesDir);
+                const templatesDir = path.join(this.config.baseDirPath, config.templatesDir);
                 const stat = yield fs.stat(templatesDir);
                 if (!stat)
                     return;
