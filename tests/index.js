@@ -22,7 +22,7 @@ import mandrillTransport from 'nodemailer-mandrill-transport';
   //
   //   let response = await mailer.app.mailer.sendWithTemplate(
   //     'newsletter', {
-  //       from: 'kievechua@hihibi.com',
+  //       from: 'kievechua@gmail.com',
   //       to: 'kievechua@gmail.com',
   //       subject: 'hello',
   //       text: 'hello world!'
