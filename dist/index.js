@@ -13,14 +13,14 @@ const email_templates_1 = require("email-templates");
 const fs = require("mz/fs");
 const path = require("path");
 const camelCase = require("lodash/camelCase");
-const emailTemplates_1 = require("./config/emailTemplates");
 class MagnetEmailTemplate extends module_1.Module {
+    get moduleName() { return 'email_templates'; }
+    get defaultConfig() { return __dirname; }
     setup() {
         return __awaiter(this, void 0, void 0, function* () {
-            const config = this.prepareConfig('emailTemplates', emailTemplates_1.default);
             try {
                 this.app.emailTemplates = {};
-                const templatesDir = path.join(this.config.baseDirPath, config.templatesDir);
+                const templatesDir = path.join(this.app.config.baseDirPath, this.config.templatesDir);
                 const stat = yield fs.stat(templatesDir);
                 if (!stat)
                     return;
@@ -30,7 +30,7 @@ class MagnetEmailTemplate extends module_1.Module {
                     const dir = yield fs.stat(dirPath);
                     if (!dir.isDirectory())
                         continue;
-                    this.app.emailTemplates[camelCase(file)] = new email_templates_1.EmailTemplate(dirPath, config);
+                    this.app.emailTemplates[camelCase(file)] = new email_templates_1.EmailTemplate(dirPath, this.config);
                 }
             }
             catch (err) {
