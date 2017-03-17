@@ -4,16 +4,15 @@ import * as fs from 'mz/fs'
 import * as path from 'path'
 import camelCase = require('lodash/camelCase')
 
-import defaultConfig from './config/emailTemplates'
-
 export default class MagnetEmailTemplate extends Module {
-  async setup () {
-    const config = this.prepareConfig('emailTemplates', defaultConfig)
+  get moduleName () { return 'email_templates' }
+  get defaultConfig () { return __dirname }
 
+  async setup () {
     try {
       this.app.emailTemplates = {}
 
-      const templatesDir = path.join(this.config.baseDirPath, config.templatesDir)
+      const templatesDir = path.join(this.app.config.baseDirPath, this.config.templatesDir)
       const stat = await fs.stat(templatesDir)
 
       if (!stat) return
@@ -26,7 +25,7 @@ export default class MagnetEmailTemplate extends Module {
 
         if (!dir.isDirectory()) continue
 
-        this.app.emailTemplates[camelCase(file)] = new EmailTemplate(dirPath, config)
+        this.app.emailTemplates[camelCase(file)] = new EmailTemplate(dirPath, this.config)
       }
     } catch (err) {
       if (err.code === 'ENOENT') {
