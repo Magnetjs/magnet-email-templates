@@ -1,6 +1,8 @@
 Magnet wrapper for [Nodemailer](https://nodemailer.com/about/)
 
 ### Usage
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/Magnetjs/magnet-email-templates.svg)](https://greenkeeper.io/)
 Basic
 ```
 import magnet from 'magnet-core';
