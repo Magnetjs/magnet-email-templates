@@ -10,8 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const module_1 = require("magnet-core/module");
 const email_templates_1 = require("email-templates");
-const fs = require("mz/fs");
 const path = require("path");
+const glob = require("glob-promise");
 const camelCase = require("lodash/camelCase");
 class MagnetEmailTemplate extends module_1.Module {
     get moduleName() { return 'email_templates'; }
@@ -19,18 +19,26 @@ class MagnetEmailTemplate extends module_1.Module {
     setup() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                this.app.emailTemplates = {};
-                const templatesDir = path.join(this.app.config.baseDirPath, this.config.templatesDir);
-                const stat = yield fs.stat(templatesDir);
-                if (!stat)
-                    return;
-                const files = yield fs.readdir(templatesDir);
+                this.insert({});
+                const templatesDir = path.join(this.app.config.baseDirPath, this.config.templatesDir, '/!(inky|examples)/**/*');
+                // console.log('templatesDir', templatesDir)
+                // console.log('templatesDir', templatesDir, await glob(templatesDir))
+                // const stat = await fs.stat(templatesDir)
+                //
+                // if (!stat) return
+                const files = yield glob(templatesDir);
+                // console.log('files', files)
                 for (const file of files) {
-                    const dirPath = `${templatesDir}/${file}`;
-                    const dir = yield fs.stat(dirPath);
-                    if (!dir.isDirectory())
-                        continue;
-                    this.app.emailTemplates[camelCase(file)] = new email_templates_1.EmailTemplate(dirPath, this.config);
+                    const parseFile = path.parse(file);
+                    const [, f] = parseFile.dir.split('templates');
+                    // console.log('file', file, f, parseFile)
+                    // console.log('file', camelCase(f))
+                    // const dirPath = `${templatesDir}/${file}`
+                    // const dir = await fs.stat(file)
+                    //
+                    // if (!dir.isDirectory()) continue
+                    //
+                    this.app.email_templates[camelCase(f)] = new email_templates_1.EmailTemplate(file, this.config);
                 }
             }
             catch (err) {
