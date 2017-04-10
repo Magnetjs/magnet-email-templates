@@ -713,6 +713,10 @@ glob-parent@^2.0.0:
   dependencies:
     is-glob "^2.0.0"
 
+glob-promise@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/glob-promise/-/glob-promise-3.1.0.tgz#198882a3817be7dc2c55f92623aa9e7b3f82d1eb"
+
 glob@^6.0.0, glob@^6.0.1:
   version "6.0.4"
   resolved "https://registry.yarnpkg.com/glob/-/glob-6.0.4.tgz#0f08860f6a155127b2fadd4f9ce24b1aab6e4d22"
@@ -1022,9 +1026,9 @@ lru-queue@0.1:
   dependencies:
     es5-ext "~0.10.2"
 
-magnet-core@^3.2.2:
-  version "3.5.4"
-  resolved "https://registry.yarnpkg.com/magnet-core/-/magnet-core-3.5.4.tgz#aa7b1c7740e2262e9e8a4f2b94f9e8dbd6b6cd21"
+magnet-core@^3.8.1:
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/magnet-core/-/magnet-core-3.8.1.tgz#406e77851bad38fd6a3b8ead15c7742778724d54"
   dependencies:
     "@types/lodash" "^4.14.52"
     "@types/node" "^7.0.5"
@@ -1032,6 +1036,7 @@ magnet-core@^3.2.2:
     bunyan "^1.8.5"
     fs-extra "^2.0.0"
     lodash "^4.17.4"
+    parent-require "^1.0.0"
 
 memoizee@~0.3.8:
   version "0.3.10"
@@ -1221,6 +1226,10 @@ optionator@^0.8.1:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
     wordwrap "~1.0.0"
+
+parent-require@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/parent-require/-/parent-require-1.0.0.tgz#746a167638083a860b0eef6732cb27ed46c32977"
 
 parse-glob@^3.0.4:
   version "3.0.4"

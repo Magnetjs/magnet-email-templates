@@ -2,6 +2,7 @@ import { Module } from 'magnet-core/module'
 import { EmailTemplate } from 'email-templates'
 import * as fs from 'mz/fs'
 import * as path from 'path'
+import * as glob from 'glob-promise'
 import camelCase = require('lodash/camelCase')
 
 export default class MagnetEmailTemplate extends Module {
@@ -10,22 +11,29 @@ export default class MagnetEmailTemplate extends Module {
 
   async setup () {
     try {
-      this.app.emailTemplates = {}
+      this.insert({})
 
-      const templatesDir = path.join(this.app.config.baseDirPath, this.config.templatesDir)
-      const stat = await fs.stat(templatesDir)
+      const templatesDir = path.join(this.app.config.baseDirPath, this.config.templatesDir, '/!(inky|examples)/**/*')
+      // console.log('templatesDir', templatesDir)
+      // console.log('templatesDir', templatesDir, await glob(templatesDir))
+      // const stat = await fs.stat(templatesDir)
+      //
+      // if (!stat) return
 
-      if (!stat) return
-
-      const files = await fs.readdir(templatesDir)
+      const files: [String] = await glob(templatesDir)
+      // console.log('files', files)
 
       for (const file of files) {
-        const dirPath = `${templatesDir}/${file}`
-        const dir = await fs.stat(dirPath)
-
-        if (!dir.isDirectory()) continue
-
-        this.app.emailTemplates[camelCase(file)] = new EmailTemplate(dirPath, this.config)
+        const parseFile = path.parse(file)
+        const [, f] = parseFile.dir.split('templates')
+        // console.log('file', file, f, parseFile)
+        // console.log('file', camelCase(f))
+        // const dirPath = `${templatesDir}/${file}`
+        // const dir = await fs.stat(file)
+        //
+        // if (!dir.isDirectory()) continue
+        //
+        this.app.email_templates[camelCase(f)] = new EmailTemplate(file, this.config)
       }
     } catch (err) {
       if (err.code === 'ENOENT') {
