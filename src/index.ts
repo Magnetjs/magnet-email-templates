@@ -22,7 +22,7 @@ export default class MagnetEmailTemplate extends Module {
 
       for (const file of files) {
         const [, f] = path.parse(file).dir.split('templates')
-        this.app.email_templates[f] = new EmailTemplate(file, this.config)
+        this.app.email_templates[f.substr(1)] = new EmailTemplate(file, this.config)
       }
     } catch (err) {
       if (err.code === 'ENOENT') {

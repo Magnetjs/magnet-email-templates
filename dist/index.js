@@ -12,7 +12,6 @@ const module_1 = require("magnet-core/module");
 const email_templates_1 = require("email-templates");
 const path = require("path");
 const glob = require("glob-promise");
-const camelCase = require("lodash/camelCase");
 class MagnetEmailTemplate extends module_1.Module {
     get moduleName() { return 'email_templates'; }
     get defaultConfig() { return __dirname; }
@@ -21,24 +20,10 @@ class MagnetEmailTemplate extends module_1.Module {
             try {
                 this.insert({});
                 const templatesDir = path.join(this.app.config.baseDirPath, this.config.templatesDir, '/!(inky|examples)/**/*');
-                // console.log('templatesDir', templatesDir)
-                // console.log('templatesDir', templatesDir, await glob(templatesDir))
-                // const stat = await fs.stat(templatesDir)
-                //
-                // if (!stat) return
                 const files = yield glob(templatesDir);
-                // console.log('files', files)
                 for (const file of files) {
-                    const parseFile = path.parse(file);
-                    const [, f] = parseFile.dir.split('templates');
-                    // console.log('file', file, f, parseFile)
-                    // console.log('file', camelCase(f))
-                    // const dirPath = `${templatesDir}/${file}`
-                    // const dir = await fs.stat(file)
-                    //
-                    // if (!dir.isDirectory()) continue
-                    //
-                    this.app.email_templates[camelCase(f)] = new email_templates_1.EmailTemplate(file, this.config);
+                    const [, f] = path.parse(file).dir.split('templates');
+                    this.app.email_templates[f] = new email_templates_1.EmailTemplate(file, this.config);
                 }
             }
             catch (err) {
