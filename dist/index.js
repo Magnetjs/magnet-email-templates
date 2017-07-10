@@ -12,6 +12,18 @@ const module_1 = require("magnet-core/module");
 const email_templates_1 = require("email-templates");
 const path = require("path");
 const glob = require("glob-promise");
+const fs = require("mz/fs");
+function filterDirectories(files) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return (yield Promise.all(files
+            .map((file) => __awaiter(this, void 0, void 0, function* () {
+            if ((yield fs.lstat(file)).isDirectory()) {
+                return file;
+            }
+        }))))
+            .filter((file) => !!file);
+    });
+}
 class MagnetEmailTemplate extends module_1.Module {
     get moduleName() { return 'email_templates'; }
     get defaultConfig() { return __dirname; }
@@ -19,12 +31,12 @@ class MagnetEmailTemplate extends module_1.Module {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 this.insert({});
-                const templatesDir = path.join(this.app.config.baseDirPath, this.config.templatesDir, '/!(inky|examples)/**');
-                const files = yield glob(templatesDir);
-                for (const file of files) {
+                const templatesDir = path.join(this.app.config.baseDirPath, this.config.templatesDir, '/!(inky|examples)/**/*');
+                const files = yield filterDirectories(yield glob(templatesDir));
+                files.forEach((file) => {
                     const [, f] = path.parse(file).dir.split('templates');
                     this.app.email_templates[f.substr(1)] = new email_templates_1.EmailTemplate(file, this.config);
-                }
+                });
             }
             catch (err) {
                 if (err.code === 'ENOENT') {

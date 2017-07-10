@@ -34,7 +34,7 @@ export default class MagnetEmailTemplate extends Module {
       const files: Array<string> = await filterDirectories(await glob(templatesDir))
 
       files.forEach((file) => {
-        const [, f] = path.parse(file).dir.split('templates')
+        const [, f] = file.split('templates')
         this.app.email_templates[f.substr(1)] = new EmailTemplate(file, this.config)
       })
     } catch (err) {
