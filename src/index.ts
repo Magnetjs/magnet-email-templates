@@ -15,7 +15,7 @@ export default class MagnetEmailTemplate extends Module {
       const templatesDir = path.join(
         this.app.config.baseDirPath,
         this.config.templatesDir,
-        '/!(inky|examples)/**/*'
+        '/!(inky|examples)/**'
       )
 
       const files: [String] = await glob(templatesDir)
