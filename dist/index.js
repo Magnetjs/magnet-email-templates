@@ -23,7 +23,7 @@ class MagnetEmailTemplate extends module_1.Module {
                 const files = yield glob(templatesDir);
                 for (const file of files) {
                     const [, f] = path.parse(file).dir.split('templates');
-                    this.app.email_templates[f] = new email_templates_1.EmailTemplate(file, this.config);
+                    this.app.email_templates[f.substr(1)] = new email_templates_1.EmailTemplate(file, this.config);
                 }
             }
             catch (err) {
