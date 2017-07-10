@@ -1,6 +1,6 @@
 {
   "name": "magnet-email-templates",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "Magnet adapter for email template",
   "keywords": [
     "email",
@@ -31,7 +31,8 @@
     "email-templates": "^2.5.4",
     "glob-promise": "^3.1.0",
     "lodash": "^4.17.4",
-    "magnet-core": "^3.8.1"
+    "magnet-core": "^3.8.1",
+    "mz": "^2.6.0"
   },
   "devDependencies": {
     "@types/node": "^8.0.7",
