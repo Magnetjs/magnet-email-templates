@@ -34,7 +34,7 @@ class MagnetEmailTemplate extends module_1.Module {
                 const templatesDir = path.join(this.app.config.baseDirPath, this.config.templatesDir, '/!(inky|examples)/**/*');
                 const files = yield filterDirectories(yield glob(templatesDir));
                 files.forEach((file) => {
-                    const [, f] = path.parse(file).dir.split('templates');
+                    const [, f] = file.split('templates');
                     this.app.email_templates[f.substr(1)] = new email_templates_1.EmailTemplate(file, this.config);
                 });
             }
