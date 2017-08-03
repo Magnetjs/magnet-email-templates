@@ -18,8 +18,10 @@ async function filterDirectories (files: Array<string>): Promise<Array<string>> 
 }
 
 export default class MagnetEmailTemplate extends Module {
-  get moduleName () { return 'email_templates' }
-  get defaultConfig () { return __dirname }
+  init () {
+    this.moduleName = 'email_templates'
+    this.defaultConfig = __dirname
+  }
 
   async setup () {
     try {
