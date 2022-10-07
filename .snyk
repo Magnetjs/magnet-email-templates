@@ -1,0 +1,33 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.25.0
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:debug:20170905':
+    - email-templates > debug:
+        patched: '2022-10-07T17:53:15.308Z'
+  'npm:extend:20180424':
+    - email-templates > juice > web-resource-inliner > request > extend:
+        patched: '2022-10-07T17:53:15.308Z'
+  'npm:hoek:20180212':
+    - email-templates > juice > web-resource-inliner > request > hawk > hoek:
+        patched: '2022-10-07T17:53:15.308Z'
+    - email-templates > juice > web-resource-inliner > request > hawk > boom > hoek:
+        patched: '2022-10-07T17:53:15.308Z'
+    - email-templates > juice > web-resource-inliner > request > hawk > sntp > hoek:
+        patched: '2022-10-07T17:53:15.308Z'
+    - email-templates > juice > web-resource-inliner > request > hawk > cryptiles > boom > hoek:
+        patched: '2022-10-07T17:53:15.308Z'
+  SNYK-JS-LODASH-567746:
+    - email-templates > lodash:
+        patched: '2022-10-07T17:53:15.308Z'
+    - magnet-core > lodash:
+        patched: '2022-10-07T17:53:15.308Z'
+    - email-templates > juice > web-resource-inliner > async > lodash:
+        patched: '2022-10-07T17:53:15.308Z'
+  'npm:stringstream:20180511':
+    - email-templates > juice > web-resource-inliner > request > stringstream:
+        patched: '2022-10-07T17:53:15.308Z'
+  'npm:tough-cookie:20170905':
+    - email-templates > juice > web-resource-inliner > request > tough-cookie:
+        patched: '2022-10-07T17:53:15.308Z'
