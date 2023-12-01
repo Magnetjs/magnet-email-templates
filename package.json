@@ -28,7 +28,7 @@
     "test": "ts-node tests/index.js | tap-spec"
   },
   "dependencies": {
-    "email-templates": "^2.5.4",
+    "email-templates": "^7.1.1",
     "glob-promise": "^3.1.0",
     "lodash": "^4.17.4",
     "magnet-core": "^4.0.1",
